@@ -11,11 +11,6 @@
     <packaging>pom</packaging>
     <name>jmeterPerfTest</name>
     <url>http://maven.apache.org</url>
-    <properties>
-        <perf.testplan>*</perf.testplan>
-        <xms.setting>4096</xms.setting>
-        <xmx.setting>4096</xmx.setting>
-    </properties>
     <dependencies>
     </dependencies>
     <build>
@@ -48,8 +43,8 @@
                 </dependencies>
                 <configuration>
                     <jMeterProcessJVMSettings>
-                        <xms>4096</xms>
-                        <xmx>4096</xmx>
+                        <xms>${xms.setting}</xms>
+                        <xmx>${xmx.setting}</xmx>
                         <arguments>
                             <argument>-Xprof</argument>
                             <argument>-Xfuture</argument>
@@ -58,10 +53,11 @@
                     <testFilesIncluded>
                         <jMeterTestFile>httpCounterDocker.jmx</jMeterTestFile>
                     </testFilesIncluded>
-                    <!--remoteConfig>
+                    <remoteConfig>
                         <startServersBeforeTests>true</startServersBeforeTests>
                         <stopServersAfterTests>true</stopServersAfterTests>
-                    </remoteConfig-->
+                        <serverList>172.17.0.1:1098,172.17.0.1:1099</serverList>
+                    </remoteConfig>
                     <!--propertiesJMeter>
                         <remote_hosts>${host}</remote_hosts>
                         <client.rmi.localport>5060</client.rmi.localport>
@@ -77,7 +73,10 @@
                         <pThinktime>${pThinktime}</pThinktime>
                     </propertiesGlobal>
                     <propertiesUser>
+                        <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
+                        <httpsampler.ignore_failed_embedded_resources>true</httpsampler.ignore_failed_embedded_resources>
                     </propertiesUser>
+
                     <jmeterExtensions>
                         <artifact>kg.apc:jmeter-plugins-extras:1.4.0</artifact>
                         <artifact>kg.apc:jmeter-plugins-standard:1.4.0</artifact>
@@ -106,4 +105,9 @@
     </build>
     <organization>
     </organization>
+    <properties>
+        <perf.testplan>*</perf.testplan>
+        <xms.setting>4096</xms.setting>
+        <xmx.setting>4096</xmx.setting>
+    </properties>
 </project>
