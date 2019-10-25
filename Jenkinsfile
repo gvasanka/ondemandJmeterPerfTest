@@ -10,6 +10,15 @@ pipeline {
             steps {
                 sh 'mvn clean install'
             }
+            post{
+                 always{
+            	      	dir("target/jmeter/results/"){
+            	        	sh 'pwd'
+            	        	//sh 'mv *httpCounterDocker.csv httpCounterDocker.csv '
+            				 perfReport 'httpCounterDocker.csv'
+            	    	 	}
+                  		}
+                  }
         }
     }
 }
