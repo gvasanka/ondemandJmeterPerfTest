@@ -56,7 +56,7 @@
                     <remoteConfig>
                         <startServersBeforeTests>true</startServersBeforeTests>
                         <stopServersAfterTests>true</stopServersAfterTests>
-                        <serverList>172.17.0.1:1098,172.17.0.1:1099</serverList>
+                        <serverList>10.1.0.29,10.1.0.27,10.1.0.26</serverList>
                     </remoteConfig>
                     <!--propertiesJMeter>
                         <remote_hosts>${host}</remote_hosts>
