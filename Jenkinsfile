@@ -4,6 +4,7 @@ pipeline {
 //             image 'maven:3-alpine'
 //             args '-v /root/.m2:/root/.m2'
 //         }
+        none
     }
     stages {
         stage('Deploy JMeter Slave') {
