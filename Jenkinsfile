@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /Users/asankav/.m2:/root/.m2'
-        }
-    }
-//     agent any
+    agent any
     stages {
             stage('Jmeter Slave Stage') {
                     agent {
@@ -31,6 +25,12 @@ pipeline {
 //               }
 
              stage('Build') {
+                agent {
+                     docker {
+                         image 'maven:3-alpine'
+                         args '-v /Users/asankav/.m2:/root/.m2'
+                     }
+                 }
                 steps {
                     sh 'mvn clean install'
                 }
