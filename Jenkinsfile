@@ -5,6 +5,7 @@ pipeline {
                     agent {
                             docker {
                                 image 'alpine/helm:2.14.0'
+                                args '-v ~/.kube:/root/.kube -v ~/.helm:/root/.helm'
                             }
                      }
                     steps {
