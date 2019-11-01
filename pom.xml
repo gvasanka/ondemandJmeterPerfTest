@@ -107,7 +107,7 @@
     </organization>
     <properties>
         <perf.testplan>*</perf.testplan>
-        <xms.setting>4096</xms.setting>
-        <xmx.setting>4096</xmx.setting>
+        <xms.setting>1024</xms.setting>
+        <xmx.setting>1024</xmx.setting>
     </properties>
 </project>
