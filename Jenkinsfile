@@ -17,7 +17,7 @@ pipeline {
                     steps {
                         sh 'pwd'
                         sh 'echo ${JenkinsTestParam}'
-                        sh 'helm version'
+//                         sh 'helm version'
                     }
              }
 //              stage('Deploy JMeter Slave') {
