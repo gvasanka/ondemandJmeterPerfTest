@@ -2,24 +2,24 @@ pipeline {
 //     agent any
         agent {
                          docker {
-                             image 'maven:3-alpine'
-                             args '-v /root/.m2:/root/.m2'
+                             image 'gvasanka/cidockerimage'
+                             args '-v /root/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
                          }
                      }
     stages {
-//             stage('Jmeter Slave Stage') {
+            stage('Jmeter Slave Stage') {
 //                     agent {
 //                             docker {
 //                                 image 'alpine/helm:2.14.0'
 //                                 args '-v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
 //                             }
 //                      }
-//                     steps {
-//                         sh 'pwd'
-//                         sh 'echo ${JenkinsTestParam}'
-//                         sh 'helm list'
-//                     }
-//              }
+                    steps {
+                        sh 'pwd'
+                        sh 'echo ${JenkinsTestParam}'
+                        sh 'helm list'
+                    }
+             }
 //              stage('Deploy JMeter Slave') {
 //                 container('helm') {
 //                        sh 'pwd'
