@@ -17,6 +17,7 @@ pipeline {
                     steps {
                         sh 'pwd'
                         sh 'echo ${JenkinsTestParam}'
+                        sh 'sleep 5m'
 //                         sh 'helm version'
                     }
              }
