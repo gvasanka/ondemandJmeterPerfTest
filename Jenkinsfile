@@ -9,7 +9,7 @@ pipeline {
             stage('Deploy JMeter Slaves') {
                    steps {
                           sh 'echo ======================================'
-                          sh 'helm install --name distributed-jmeter-${currentBuild.number} stable/distributed-jmeter'
+                          sh 'helm install --name distributed-jmeter-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 1m'
                           sh 'echo ======================================'
                           }
@@ -43,7 +43,7 @@ pipeline {
             stage('UnDeploy JMeter Slaves') {
                       steps {
                              sh 'echo ======================================'
-                             sh 'helm delete distributed-jmeter-${currentBuild.number}'
+                             sh 'helm delete distributed-jmeter-${BUILD_NUMBER}'
                              sh 'sleep 1m'
                              sh 'echo ======================================'
                              }
