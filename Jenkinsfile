@@ -1,5 +1,4 @@
 pipeline {
-//     agent any
         agent {
                          docker {
                              image 'gvasanka/cidockerimage'
@@ -7,6 +6,14 @@ pipeline {
                          }
                      }
     stages {
+            stage('Deploy JMeter Slaves') {
+                   steps {
+                          sh 'echo ======================================'
+                          sh 'helm install --name distributed-jmeter stable/distributed-jmeter'
+                          sh 'sleep 1m'
+                          sh 'echo ======================================'
+                          }
+            }
             stage('Get JMeter Slave IP details') {
                     steps {
                         script{
@@ -17,28 +24,8 @@ pipeline {
                                     print "======================================"
 
                                 }
-    //                         sh 'pwd'
-    //                         sh 'echo ${JenkinsTestParam}'
-    //                         sh 'echo ${jenkinsSlaveNodes}'
-    // //                         sh 'sleep 10m'
-    //                         def SERVER_IPS = sh '$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
-    //                         sh 'echo ${SERVER_IPS}'
-    //                         sh 'helm version'
-    //                         sh 'helm list'
-    //                         sh 'kubectl get pods'
                         }
              }
-//              stage('Deploy JMeter Slave') {
-//                 container('helm') {
-//                        sh 'pwd'
-//                        sh 'helm upgrade --install --force jobrm-static ./charts/jobrm-static --set image.repository=jobrm --set image.tag=latest --set service.type=NodePort --set service.nodePort=31001'
-//                      }
-//                      steps {
-//                          sh 'pwd'
-//              //                         sh 'docker run -ti --rm -v $(pwd):/apps -v ~/.kube:/root/.kube -v ~/.helm:/root/.helm alpine/helm:2.14.3 install --name my-release5 stable/jenkins'
-//                                  }
-//               }
-
              stage('Build') {
                 steps {
                     sh 'echo ${jenkinsSlaveNodes}'
@@ -47,12 +34,19 @@ pipeline {
                 post{
                      always{
                             dir("target/jmeter/results/"){
-                                sh 'pwd'
-                                //sh 'mv *httpCounterDocker.csv httpCounterDocker.csv '
+                                 sh 'pwd'
                                  perfReport 'httpCounterDocker.csv'
                                 }
                             }
                       }
+            }
+            stage('UnDeploy JMeter Slaves') {
+                      steps {
+                             sh 'echo ======================================'
+                             sh 'helm delete distributed-jmeter'
+                             sh 'sleep 1m'
+                             sh 'echo ======================================'
+                             }
             }
     }
 }
