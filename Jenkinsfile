@@ -10,7 +10,7 @@ pipeline {
                    steps {
                           sh 'echo ======================================'
                           sh 'helm install --name distributed-jmeter-${BUILD_NUMBER} stable/distributed-jmeter'
-                          sh 'sleep 1m'
+                          sh 'sleep 5'
                           sh 'echo ======================================'
                           }
             }
@@ -44,7 +44,7 @@ pipeline {
                       steps {
                              sh 'echo ======================================'
                              sh 'helm delete distributed-jmeter-${BUILD_NUMBER}'
-                             sh 'sleep 1m'
+                             sh 'sleep 5'
                              sh 'echo ======================================'
                              }
             }
