@@ -17,6 +17,8 @@ pipeline {
                     steps {
                         sh 'pwd'
                         sh 'echo ${JenkinsTestParam}'
+                        sh 'export SERVER_IPS=$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath='{.items[*].status.podIP}' | tr ' ' ',')'
+                        sh 'echo ${SERVER_IPS}'
 //                         sh 'helm version'
                     }
              }
