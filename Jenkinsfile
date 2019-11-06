@@ -17,9 +17,10 @@ pipeline {
                     steps {
                         sh 'pwd'
                         sh 'echo ${JenkinsTestParam}'
+                        sh 'echo ${jenkinsSlaveNodes}'
 //                         sh 'sleep 10m'
-                        sh 'export SERVER_IPS=$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
-                        sh 'echo ${SERVER_IPS}'
+                        sh '${jenkinsSlaveNodes}=$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
+                        sh 'echo ${jenkinsSlaveNodes}'
                         sh 'helm version'
                         sh 'helm list'
                         sh 'kubectl get pods'
