@@ -3,7 +3,7 @@ pipeline {
         agent {
                          docker {
                              image 'gvasanka/cidockerimage'
-                             args '-v /root/.m2:/root/.m2 -v /root/.kube:/root/.kube -v /root/.helm:/root/.helm'
+                             args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
                          }
                      }
     stages {
