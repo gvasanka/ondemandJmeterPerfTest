@@ -7,24 +7,25 @@ pipeline {
                          }
                      }
     stages {
-            stage('Jmeter Slave Stage') {
-//                     agent {
-//                             docker {
-//                                 image 'alpine/helm:2.14.0'
-//                                 args '-v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
-//                             }
-//                      }
+            stage('Get JMeter Slave IP details') {
                     steps {
-                        sh 'pwd'
-                        sh 'echo ${JenkinsTestParam}'
-                        sh 'echo ${jenkinsSlaveNodes}'
-//                         sh 'sleep 10m'
-                        def SERVER_IPS = sh '$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
-                        sh 'echo ${SERVER_IPS}'
-                        sh 'helm version'
-                        sh 'helm list'
-                        sh 'kubectl get pods'
-                    }
+                        script{
+                                    print "======================================"
+                                    Print "Searching for Jmeter Slave IPs"
+                                    def SERVER_IPS = '$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
+                                    print "======================================"
+
+                                }
+    //                         sh 'pwd'
+    //                         sh 'echo ${JenkinsTestParam}'
+    //                         sh 'echo ${jenkinsSlaveNodes}'
+    // //                         sh 'sleep 10m'
+    //                         def SERVER_IPS = sh '$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
+    //                         sh 'echo ${SERVER_IPS}'
+    //                         sh 'helm version'
+    //                         sh 'helm list'
+    //                         sh 'kubectl get pods'
+                        }
              }
 //              stage('Deploy JMeter Slave') {
 //                 container('helm') {
@@ -38,13 +39,8 @@ pipeline {
 //               }
 
              stage('Build') {
-//                 agent {
-//                      docker {
-//                          image 'maven:3-alpine'
-//                          args '-v /Users/asankav/.m2:/root/.m2'
-//                      }
-//                  }
                 steps {
+                    sh 'echo ${SERVER_IPS}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${SERVER_IPS}\"'
                 }
                 post{
