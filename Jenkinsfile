@@ -12,7 +12,7 @@ pipeline {
                         script{
                                     print "======================================"
                                     print "Searching for Jmeter Slave IPs"
-                                    def SERVER_IPS = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\''
+                                    def SERVER_IPS = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                     println("commitSha: ${SERVER_IPS}")
                                     print "======================================"
 
