@@ -17,10 +17,12 @@ pipeline {
                     steps {
                         sh 'pwd'
                         sh 'echo ${JenkinsTestParam}'
-                        sh 'sleep 10m'
+//                         sh 'sleep 10m'
                         sh 'export SERVER_IPS=$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
                         sh 'echo ${SERVER_IPS}'
-//                         sh 'helm version'
+                        sh 'helm version'
+                        sh 'helm list'
+                        sh 'kubectl get pods'
                     }
              }
 //              stage('Deploy JMeter Slave') {
@@ -42,7 +44,7 @@ pipeline {
 //                      }
 //                  }
                 steps {
-                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
+                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${SERVER_IPS}\"'
                 }
                 post{
                      always{
