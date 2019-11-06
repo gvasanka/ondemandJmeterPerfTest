@@ -13,7 +13,7 @@ pipeline {
                                     print "======================================"
                                     print "Searching for Jmeter Slave IPs"
                                     env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
-                                    println("commitSha: ${env.jenkinsSlaveNodes}")
+                                    println("IP Details: ${env.jenkinsSlaveNodes}")
                                     print "======================================"
 
                                 }
@@ -41,8 +41,8 @@ pipeline {
 
              stage('Build') {
                 steps {
-                    sh 'echo ${env.jenkinsSlaveNodes}'
-                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${env.jenkinsSlaveNodes}\"'
+                    sh 'echo ${jenkinsSlaveNodes}'
+                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
                 }
                 post{
                      always{
