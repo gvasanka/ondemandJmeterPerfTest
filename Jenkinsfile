@@ -11,7 +11,7 @@ pipeline {
                     steps {
                         script{
                                     print "======================================"
-                                    Print "Searching for Jmeter Slave IPs"
+                                    print "Searching for Jmeter Slave IPs"
                                     def SERVER_IPS = '$(kubectl get pods -l app.kubernetes.io/component=server -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\')'
                                     print "======================================"
 
