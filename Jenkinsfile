@@ -41,7 +41,7 @@ pipeline {
 
              stage('Build') {
                 steps {
-                    sh 'echo ${SERVER_IPS}'
+                    sh 'echo ${env.jenkinsSlaveNodes}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${env.jenkinsSlaveNodes}\"'
                 }
                 post{
