@@ -14,8 +14,8 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
+                          script{JOBNAME=sh(returnStdout: true, script:'${JOB_NAME,,}')}
                           sh 'echo ======================================'
-                          JOBNAME=sh(returnStdout: true, script:'${JOB_NAME,,}')
                           sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 5'
                           sh 'echo ======================================'
@@ -24,14 +24,13 @@ pipeline {
             stage('Search Slave IP details') {
                     steps {
                         script{
-                                    print "======================================"
-                                    print "Searching for Jmeter Slave IPs"
-                                    env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
-                                    println("IP Details: ${env.jenkinsSlaveNodes}")
-                                    print "======================================"
-
-                                }
+                              print "======================================"
+                              print "Searching for Jmeter Slave IPs"
+                              env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
+                              println("IP Details: ${env.jenkinsSlaveNodes}")
+                              print "======================================"
                         }
+                    }
              }
              stage('Execute Performance Test') {
                 steps {
