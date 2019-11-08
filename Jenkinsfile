@@ -1,4 +1,5 @@
-def JOBNAME
+def JOBNAME=env.JOB_NAME
+
 pipeline {
     agent {
            docker {
@@ -14,9 +15,6 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
-                          script{
-                                env.JOBNAME = sh(returnStdout: true, script:'${JOB_NAME,,}')
-                                }
                           sh 'echo ======================================'
                           sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 5'
