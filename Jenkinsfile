@@ -14,7 +14,7 @@ pipeline {
                           sh 'echo ======================================'
                           }
             }
-            stage('Get JMeter Slave IP details') {
+            stage('Search Slave IP details') {
                     steps {
                         script{
                                     print "======================================"
@@ -26,7 +26,7 @@ pipeline {
                                 }
                         }
              }
-             stage('Build') {
+             stage('Execute Performance Test') {
                 steps {
                     sh 'echo ${jenkinsSlaveNodes}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
@@ -40,7 +40,7 @@ pipeline {
                             }
                       }
             }
-            stage('UnDeploy JMeter Slaves') {
+            stage('Erase JMeter Slaves') {
                       steps {
                              sh 'echo ======================================'
                              sh 'helm delete distributed-jmeter-${JOB_NAME}-${BUILD_NUMBER}'
