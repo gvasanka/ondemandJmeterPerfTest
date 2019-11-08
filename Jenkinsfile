@@ -1,4 +1,5 @@
-def JOBNAME=env.JOB_NAME
+def JOBNAME = ${env.JOB_NAME}
+def jenkinsSlaveNodes
 
 pipeline {
     agent {
@@ -9,7 +10,7 @@ pipeline {
     }
 
     parameters {
-            string(defaultValue: "909090", description: '', name: 'HATest')
+            string(defaultValue: "How many slave required?", description: '', name: 'noOfSlaveNodes')
     }
 
     stages {
