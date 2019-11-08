@@ -1,10 +1,16 @@
+def JOBNAME
 pipeline {
-        agent {
-                         docker {
-                             image 'gvasanka/cidockerimage'
-                             args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
-                         }
-                     }
+    agent {
+           docker {
+                  image 'gvasanka/cidockerimage'
+                  args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
+            }
+    }
+
+    parameters {
+            string(defaultValue: "909090", description: '', name: 'HATest')
+    }
+
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
@@ -30,6 +36,7 @@ pipeline {
              stage('Execute Performance Test') {
                 steps {
                     sh 'echo ${jenkinsSlaveNodes}'
+                    sh 'echo ${HATest}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
                 }
                 post{
