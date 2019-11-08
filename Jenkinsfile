@@ -1,5 +1,3 @@
-def JOBNAME = ${env.JOB_NAME}
-def jenkinsSlaveNodes
 
 pipeline {
     agent {
@@ -7,6 +5,11 @@ pipeline {
                   image 'gvasanka/cidockerimage'
                   args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
             }
+    }
+
+    environment {
+            JOBNAME = ${JOB-NAME}
+            jenkinsSlaveNodes = "Didn't found slave IPs"
     }
 
     parameters {
