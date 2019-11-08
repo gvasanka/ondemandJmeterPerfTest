@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-            JOBNAME = "JobName"
+            JOBNAME = "jobname"
     }
 
     parameters {
