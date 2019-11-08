@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-            JOBNAME = "jobname"
+            JOBNAME = "jobnamee"
     }
 
     parameters {
@@ -18,6 +18,7 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
+                          currentBuild.displayName = "The name."
                           sh 'echo ======================================'
                           sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 5'
@@ -38,6 +39,7 @@ pipeline {
              stage('Execute Performance Test') {
                 steps {
                     sh 'echo ======================================'
+                    sh 'echo ${currentBuild.displayName}'
                     sh 'echo ${jenkinsSlaveNodes}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
                     sh 'echo ======================================'
