@@ -12,7 +12,7 @@ pipeline {
     }
 
     parameters {
-            string(defaultValue: "How many slave required?", description: '', name: 'noOfSlaveNodes')
+            string(defaultValue: "1", description: 'How many slave required ?', name: 'noOfSlaveNodes')
     }
 
     stages {
@@ -37,9 +37,10 @@ pipeline {
              }
              stage('Execute Performance Test') {
                 steps {
+                    sh 'echo ======================================'
                     sh 'echo ${jenkinsSlaveNodes}'
-                    sh 'echo ${HATest}'
                     sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
+                    sh 'echo ======================================'
                 }
                 post{
                      always{
