@@ -9,7 +9,7 @@ pipeline {
             stage('Deploy JMeter Slaves') {
                    steps {
                           sh 'echo ======================================'
-                          sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${BUILD_NUMBER} stable/distributed-jmeter'
+                          sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOB_NAME}-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 5'
                           sh 'echo ======================================'
                           }
@@ -19,7 +19,7 @@ pipeline {
                         script{
                                     print "======================================"
                                     print "Searching for Jmeter Slave IPs"
-                                    env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
+                                    env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOB_NAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                     println("IP Details: ${env.jenkinsSlaveNodes}")
                                     print "======================================"
 
@@ -43,7 +43,7 @@ pipeline {
             stage('UnDeploy JMeter Slaves') {
                       steps {
                              sh 'echo ======================================'
-                             sh 'helm delete distributed-jmeter-${BUILD_NUMBER}'
+                             sh 'helm delete distributed-jmeter-${JOB_NAME}-${BUILD_NUMBER}'
                              sh 'sleep 5'
                              sh 'echo ======================================'
                              }
