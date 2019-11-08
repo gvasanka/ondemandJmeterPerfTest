@@ -14,7 +14,9 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
-                          script{JOBNAME=sh(returnStdout: true, script:'${JOB_NAME,,}')}
+                          script{
+                                env.JOBNAME = sh(returnStdout: true, script:'${JOB_NAME,,}')
+                                }
                           sh 'echo ======================================'
                           sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
                           sh 'sleep 5'
