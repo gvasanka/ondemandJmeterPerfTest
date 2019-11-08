@@ -8,8 +8,7 @@ pipeline {
     }
 
     environment {
-            JOBNAME = ${JOB-NAME}
-            jenkinsSlaveNodes = "Didn't found slave IPs"
+            JOBNAME = "JobName"
     }
 
     parameters {
