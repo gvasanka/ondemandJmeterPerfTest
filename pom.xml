@@ -27,12 +27,12 @@
                             <goal>jmeter</goal>
                         </goals>
                     </execution>
-<!--                    <execution>-->
-<!--                        <id>jmeter-check-results</id>-->
-<!--                        <goals>-->
-<!--                            <goal>results</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
+                    <execution>
+                        <id>jmeter-check-results</id>
+                        <goals>
+                            <goal>results</goal>
+                        </goals>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
@@ -53,11 +53,11 @@
                     <testFilesIncluded>
                         <jMeterTestFile>httpCounterDocker.jmx</jMeterTestFile>
                     </testFilesIncluded>
-                    <remoteConfig>
+                    <!--remoteConfig>
                         <startServersBeforeTests>true</startServersBeforeTests>
                         <stopServersAfterTests>true</stopServersAfterTests>
                         <serverList>${jenkinsSlaveNodes}</serverList>
-                    </remoteConfig>
+                    </remoteConfig-->
                     <!--propertiesJMeter>
                         <remote_hosts>${host}</remote_hosts>
                         <client.rmi.localport>5060</client.rmi.localport>
@@ -73,8 +73,6 @@
                         <pThinktime>${pThinktime}</pThinktime>
                     </propertiesGlobal>
                     <propertiesUser>
-                        <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
-                        <httpsampler.ignore_failed_embedded_resources>true</httpsampler.ignore_failed_embedded_resources>
                     </propertiesUser>
 
                     <jmeterExtensions>
