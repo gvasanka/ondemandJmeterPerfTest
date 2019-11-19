@@ -11,7 +11,7 @@ spec:
         - cat
       tty: true
     - name: helm
-        image: helm:alpine
-        command:
+      image: helm:alpine
+      command:
           - cat
-        tty: true
+      tty: true
