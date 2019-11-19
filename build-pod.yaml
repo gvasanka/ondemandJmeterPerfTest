@@ -10,8 +10,3 @@ spec:
       command:
         - cat
       tty: true
-    - name: cidockerimage
-      image: gvasanka/cidockerimage
-      command:
-        - cat
-      tty: true
