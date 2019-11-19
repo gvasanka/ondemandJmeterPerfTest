@@ -1,9 +1,15 @@
 
 pipeline {
     agent {
-           docker {
-                  image 'gvasanka/cidockerimage'
-                  args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
+//            docker {
+//                   image 'gvasanka/cidockerimage'
+//                   args '-v /Users/asankav/.m2:/root/.m2 -v /Users/asankav/.kube:/root/.kube -v /Users/asankav/.helm:/root/.helm'
+//             }
+            kubernetes {
+                  label 'promo-app'  // all your pods will be named with this prefix, followed by a unique id
+                  idleMinutes 5  // how long the pod will live after no jobs have run on it
+                  yamlFile 'build-pod.yaml'  // path to the pod definition relative to the root of our project
+                  defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
             }
     }
 
