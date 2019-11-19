@@ -10,3 +10,8 @@ spec:
       command:
         - cat
       tty: true
+    - name: helm
+        image: helm:alpine
+        command:
+          - cat
+        tty: true

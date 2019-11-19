@@ -22,11 +22,13 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
-                          sh 'echo ======================================'
-                          sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
-                          sh 'sleep 5'
-                          sh 'echo ======================================'
-                          }
+                        container('helm'){
+                              sh 'echo ======================================'
+                              sh 'helm install --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter'
+                              sh 'sleep 5'
+                              sh 'echo ======================================'
+                        }
+                    }
             }
             stage('Search Slave IP details') {
                     steps {
@@ -57,11 +59,13 @@ pipeline {
             }
             stage('Erase JMeter Slaves') {
                       steps {
-                             sh 'echo ======================================'
-                             sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
-                             sh 'sleep 5'
-                             sh 'echo ======================================'
-                             }
+                            container('helm'){
+                                 sh 'echo ======================================'
+                                 sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+                                 sh 'sleep 5'
+                                 sh 'echo ======================================'
+                            }
+                      }
             }
     }
 }
