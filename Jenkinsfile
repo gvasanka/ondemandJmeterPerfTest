@@ -7,7 +7,7 @@ pipeline {
 //             }
             kubernetes {
                   yamlFile 'build-pod.yaml'  // path to the pod definition relative to the root of our project
-//                   defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
+                  defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
              }
     }
 
@@ -44,23 +44,20 @@ pipeline {
                     }
              }
              stage('Execute Performance Test') {
-                container('maven'){
-                    steps {
-                                        sh 'echo ======================================'
-                                        sh 'echo ${jenkinsSlaveNodes}'
-                                        sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
-                                        sh 'echo ======================================'
-                                    }
-                                    post{
-                                         always{
-                                                dir("target/jmeter/results/"){
-                                                     sh 'pwd'
-                                                     perfReport 'httpCounterDocker.csv'
-                                                    }
-                                                }
-                                          }
+                steps {
+                    sh 'echo ======================================'
+                    sh 'echo ${jenkinsSlaveNodes}'
+                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
+                    sh 'echo ======================================'
                 }
-
+                post{
+                     always{
+                            dir("target/jmeter/results/"){
+                                 sh 'pwd'
+                                 perfReport 'httpCounterDocker.csv'
+                                }
+                            }
+                      }
             }
             stage('Erase JMeter Slaves') {
                       steps {
