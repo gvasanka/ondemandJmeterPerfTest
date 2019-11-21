@@ -11,7 +11,25 @@ spec:
         - cat
       tty: true
     - name: helm
-      image: alpine/helm:latest
+      image: alpine/helm:2.14.3
       command:
           - cat
       tty: true
+      volumeMounts:
+        - mountPath: /root/.kube
+          name: kube-volume
+        - mountPath: /root/.helm
+          name: helm-volume
+   volumes:
+      - name: kube-volume
+        hostPath:
+            # directory location on host
+            path: /Users/asankav/.kube
+            # this field is optional
+            type: Directory
+      - name: helm-volume
+        hostPath:
+            # directory location on host
+            path: /Users/asankav/.helm
+            # this field is optional
+            type: Directory

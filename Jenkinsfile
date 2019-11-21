@@ -24,7 +24,7 @@ pipeline {
                    steps {
                         container('helm'){
                               sh 'echo ======================================'
-                              sh 'helm install stable/distributed-jmeter --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0 --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+                              sh 'helm install distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} stable/distributed-jmeter --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'sleep 5'
                               sh 'echo ======================================'
                         }
