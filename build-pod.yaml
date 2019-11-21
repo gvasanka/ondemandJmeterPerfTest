@@ -22,13 +22,13 @@ spec:
           name: helm-volume
   volumes:
     - name: kube-volume
-        hostPath:
+      hostPath:
             # directory location on host
             path: /Users/asankav/.kube
             # this field is optional
             type: Directory
     - name: helm-volume
-        hostPath:
+      hostPath:
             # directory location on host
             path: /Users/asankav/.helm
             # this field is optional
