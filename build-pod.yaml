@@ -15,7 +15,7 @@ spec:
       command:
           - cat
       tty: true
-    volumeMounts:
+      volumeMounts:
         - mountPath: /root/.kube
           name: kube-volume
         - mountPath: /root/.helm
