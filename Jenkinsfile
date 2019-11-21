@@ -64,7 +64,7 @@ pipeline {
             stage('Read Performance Test Results') {
                 steps {
                     sh 'pwd'
-                    perfReport '${JENKINS_AGENT_WORKDIR}/target/jmeter/results/httpCounterDocker.csv'
+                    perfReport 'target/jmeter/results/httpCounterDocker.csv'
                 }
             }
             stage('Erase JMeter Slaves') {
