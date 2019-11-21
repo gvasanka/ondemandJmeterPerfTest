@@ -44,20 +44,23 @@ pipeline {
                     }
              }
              stage('Execute Performance Test') {
-                steps {
-                    sh 'echo ======================================'
-                    sh 'echo ${jenkinsSlaveNodes}'
-                    sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
-                    sh 'echo ======================================'
+                container('maven'){
+                    steps {
+                                        sh 'echo ======================================'
+                                        sh 'echo ${jenkinsSlaveNodes}'
+                                        sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
+                                        sh 'echo ======================================'
+                                    }
+                                    post{
+                                         always{
+                                                dir("target/jmeter/results/"){
+                                                     sh 'pwd'
+                                                     perfReport 'httpCounterDocker.csv'
+                                                    }
+                                                }
+                                          }
                 }
-                post{
-                     always{
-                            dir("target/jmeter/results/"){
-                                 sh 'pwd'
-                                 perfReport 'httpCounterDocker.csv'
-                                }
-                            }
-                      }
+
             }
             stage('Erase JMeter Slaves') {
                       steps {
