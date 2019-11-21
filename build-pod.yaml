@@ -14,7 +14,7 @@ spec:
         - mountPath: /root/.m2
           name: m2-volume
     - name: kubehelm
-      image: dtzar/helm-kubectl
+      image: dtzar/helm-kubectl:2.14.3
       command:
           - cat
       tty: true
