@@ -22,7 +22,7 @@ pipeline {
     stages {
             stage('Deploy JMeter Slaves') {
                    steps {
-                        container('helm'){
+                        container('kubehelm'){
                               sh 'echo ======================================'
                               sh 'helm install stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'sleep 5'
@@ -32,12 +32,14 @@ pipeline {
             }
             stage('Search Slave IP details') {
                     steps {
-                        script{
-                              print "======================================"
-                              print "Searching for Jmeter Slave IPs"
-                              env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
-                              println("IP Details: ${env.jenkinsSlaveNodes}")
-                              print "======================================"
+                        container('kubehelm'){
+                            script{
+                                  print "======================================"
+                                  print "Searching for Jmeter Slave IPs"
+                                  env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
+                                  println("IP Details: ${env.jenkinsSlaveNodes}")
+                                  print "======================================"
+                            }
                         }
                     }
              }
@@ -59,7 +61,7 @@ pipeline {
             }
             stage('Erase JMeter Slaves') {
                       steps {
-                            container('helm'){
+                            container('kubehelm'){
                                  sh 'echo ======================================'
                                  sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                                  sh 'sleep 5'

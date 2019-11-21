@@ -10,8 +10,11 @@ spec:
       command:
         - cat
       tty: true
-    - name: helm
-      image: alpine/helm:2.14.3
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-volume
+    - name: kubehelm
+      image: dtzar/helm-kubectl
       command:
           - cat
       tty: true
@@ -33,3 +36,9 @@ spec:
             path: /Users/asankav/.helm
             # this field is optional
             type: Directory
+    - name: m2-volume
+      hostPath:
+        # directory location on host
+        path: /Users/asankav/.m2
+        # this field is optional
+        type: Directory
