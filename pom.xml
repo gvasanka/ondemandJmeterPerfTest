@@ -53,16 +53,6 @@
                     <testFilesIncluded>
                         <jMeterTestFile>httpCounterDocker.jmx</jMeterTestFile>
                     </testFilesIncluded>
-                    <!--remoteConfig>
-                        <startServersBeforeTests>true</startServersBeforeTests>
-                        <stopServersAfterTests>true</stopServersAfterTests>
-                        <serverList>${jenkinsSlaveNodes}</serverList>
-                    </remoteConfig-->
-                    <!--propertiesJMeter>
-                        <remote_hosts>${host}</remote_hosts>
-                        <client.rmi.localport>5060</client.rmi.localport>
-                        <https.socket.protocols>TLSv1.2</https.socket.protocols>
-                    </propertiesJMeter-->
                     <propertiesGlobal>
                         <serverURL>${serverURL}</serverURL>
                         <serverPortHTTP>${serverPortHTTP}</serverPortHTTP>
@@ -74,7 +64,6 @@
                     </propertiesGlobal>
                     <propertiesUser>
                     </propertiesUser>
-
                     <jmeterExtensions>
                         <artifact>kg.apc:jmeter-plugins-extras:1.4.0</artifact>
                         <artifact>kg.apc:jmeter-plugins-standard:1.4.0</artifact>
