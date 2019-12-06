@@ -10,35 +10,35 @@ spec:
       command:
         - cat
       tty: true
-      volumeMounts:
-        - mountPath: /root/.m2
-          name: m2-volume
+#      volumeMounts:
+#        - mountPath: /root/.m2
+#          name: m2-volume
     - name: kubehelm
       image: dtzar/helm-kubectl:2.14.3
       command:
           - cat
       tty: true
-      volumeMounts:
-        - mountPath: /root/.kube
-          name: kube-volume
-        - mountPath: /root/.helm
-          name: helm-volume
-  volumes:
-    - name: kube-volume
-      hostPath:
-            # directory location on host
-            path: /Users/asankav/.kube
-            # this field is optional
-            type: Directory
-    - name: helm-volume
-      hostPath:
-            # directory location on host
-            path: /Users/asankav/.helm
-            # this field is optional
-            type: Directory
-    - name: m2-volume
-      hostPath:
-        # directory location on host
-        path: /Users/asankav/.m2
-        # this field is optional
-        type: Directory
+#      volumeMounts:
+#        - mountPath: /root/.kube
+#          name: kube-volume
+#        - mountPath: /root/.helm
+#          name: helm-volume
+#  volumes:
+#    - name: kube-volume
+#      hostPath:
+#            # directory location on host
+#            path: /Users/asankav/.kube
+#            # this field is optional
+#            type: Directory
+#    - name: helm-volume
+#      hostPath:
+#            # directory location on host
+#            path: /Users/asankav/.helm
+#            # this field is optional
+#            type: Directory
+#    - name: m2-volume
+#      hostPath:
+#        # directory location on host
+#        path: /Users/asankav/.m2
+#        # this field is optional
+#        type: Directory
