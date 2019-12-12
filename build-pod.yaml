@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: kube-system
   labels:
-    some-label: some-label-value
+    some-label: jenkins-agent-pods
 spec:
+  serviceAccountName: eks-admin
   containers:
     - name: maven
       image: maven:alpine
