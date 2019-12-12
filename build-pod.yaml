@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: default
+  namespace: kube-system
   labels:
     jmeter-label: jmeter-master
     jenkins-label: jenkins-slave
 spec:
-  serviceAccountName: default
+  serviceAccountName: eks-admin
   containers:
     - name: maven
       image: maven:alpine
