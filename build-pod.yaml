@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: default
   labels:
     jmeter-label: jmeter-master
     jenkins-label: jenkins-slave
 spec:
+  serviceAccountName: default
   containers:
     - name: maven
       image: maven:alpine
