@@ -1,24 +1,22 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: kube-system
   labels:
-    some-label: jenkins-agent-pods
+    some-label: some-label-value
 spec:
-  serviceAccountName: eks-admin
   containers:
     - name: maven
       image: maven:alpine
       command:
         - cat
       tty: true
-#      volumeMounts:
-#        - mountPath: /root/.m2
-#          name: m2-volume
+    #      volumeMounts:
+    #        - mountPath: /root/.m2
+    #          name: m2-volume
     - name: kubehelm
       image: dtzar/helm-kubectl:2.14.3
       command:
-          - cat
+        - cat
       tty: true
 #      volumeMounts:
 #        - mountPath: /root/.kube
