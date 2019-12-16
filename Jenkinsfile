@@ -24,6 +24,7 @@ pipeline {
                    steps {
                         container('kubehelm'){
                               sh 'echo =======================Start deploy JMeter Slaves==============='
+                              sh 'helm init --client-only'
                               sh 'helm repo update'
                               sh 'helm install stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'sleep 5'
