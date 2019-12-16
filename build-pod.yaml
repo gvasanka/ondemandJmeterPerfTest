@@ -20,11 +20,11 @@ spec:
       command:
         - cat
       tty: true
-#      volumeMounts:
+      volumeMounts:
 #        - mountPath: /root/.kube
 #          name: kube-volume
-#        - mountPath: /root/.helm
-#          name: helm-volume
+        - mountPath: /root/.helm
+          name: helm-volume
   volumes:
 #    - name: kube-volume
 #      hostPath:
@@ -41,3 +41,6 @@ spec:
     - name: m2-volume
       persistentVolumeClaim:
         claimName: maven-pv-claim
+    - name: helm-volume
+      persistentVolumeClaim:
+        claimName: helm-pv-claim
