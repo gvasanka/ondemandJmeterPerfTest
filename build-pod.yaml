@@ -5,7 +5,7 @@ metadata:
     jmeter-label: jmeter-master
     jenkins-label: jenkins-slave
 spec:
-  serviceAccountName: eks-admin
+  serviceAccountName: jenkins-release
   containers:
     - name: maven
       image: maven:alpine
