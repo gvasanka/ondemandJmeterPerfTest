@@ -23,10 +23,11 @@ pipeline {
             stage('Deploy JMeter Slaves') {
                    steps {
                         container('kubehelm'){
-                              sh 'echo ======================================'
+                              sh 'echo =======================Start deploy JMeter Slaves==============='
+                              sh 'helm repo update'
                               sh 'helm install stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'sleep 5'
-                              sh 'echo ======================================'
+                              sh 'echo =======================Finishing deploy JMeter Slaves==============='
                         }
                     }
             }
@@ -34,11 +35,11 @@ pipeline {
                     steps {
                         container('kubehelm'){
                             script{
-                                  print "======================================"
+                                  print "=================Start search for slave IP details====================="
                                   print "Searching for Jmeter Slave IPs"
                                   env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
-                                  print "======================================"
+                                  print "===================Finishing search for slave IP details==================="
                             }
                         }
                     }
@@ -46,10 +47,10 @@ pipeline {
              stage('Execute Performance Test') {
                 steps {
                     container('maven'){
-                        sh 'echo ======================================'
+                        sh 'echo ===============Start maven build execution======================='
                         sh 'echo ${jenkinsSlaveNodes}'
                         sh 'mvn clean install \"-DjenkinsSlaveNodes=${jenkinsSlaveNodes}\"'
-                        sh 'echo ======================================'
+                        sh 'echo ===============Finishing maven build execution======================='
                     }
                 }
 //                 post{
@@ -63,17 +64,19 @@ pipeline {
             }
             stage('Read Performance Test Results') {
                 steps {
+                    sh 'echo ===============Start read Performance Test Results======================='
                     sh 'pwd'
                     perfReport 'target/jmeter/results/httpCounterDocker.csv'
+                    sh 'echo ===============Finishing Performance Test Results======================='
                 }
             }
             stage('Erase JMeter Slaves') {
                       steps {
                             container('kubehelm'){
-                                 sh 'echo ======================================'
+                                 sh 'echo ==============Start Erasing JMeter Slaves========================'
                                  sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                                  sh 'sleep 5'
-                                 sh 'echo ======================================'
+                                 sh 'echo ===============Finishing Erasing JMeter Slaves======================='
                             }
                       }
             }
