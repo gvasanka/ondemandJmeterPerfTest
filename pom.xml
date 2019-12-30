@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.asanka.perfromance</groupId>
-    <artifactId>jmeterPerfTest</artifactId>
+    <artifactId>ondemandJmeterPerfTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
-    <name>jmeterPerfTest</name>
+    <name>ondemandJmeterPerfTest</name>
     <url>http://maven.apache.org</url>
     <dependencies>
     </dependencies>
