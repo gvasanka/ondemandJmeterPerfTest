@@ -65,7 +65,7 @@ pipeline {
             stage('Read Performance Test Results') {
                 steps {
                     sh 'echo ===============Start read Performance Test Results======================='
-                    sh 'pwd1234'
+                    sh 'pwd'
                     perfReport 'target/jmeter/results/httpCounterDocker.csv'
                     sh 'echo ===============Finishing Performance Test Results======================='
                 }
@@ -84,14 +84,14 @@ pipeline {
 
     post {
             failure {
-                sh 'echo ==============Start Final Block =============='
+                sh 'echo ==============Start post failure clearing =============='
                 container('kubehelm'){
 //                     sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
 //                     sh 'helm get distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                 }
-                sh 'echo ==============Finishing Final Block=============='
+                sh 'echo ==============Finishing post failure clearing=============='
             }
     }
 }
