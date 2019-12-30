@@ -74,8 +74,8 @@ pipeline {
                       steps {
                             container('kubehelm'){
                                  sh 'echo ==============Start Erasing JMeter Slaves========================'
-                                 sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
-                                 sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
+                                 sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}123'
+                                 sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}123 --timeout=60s'
                                  sh 'echo ===============Finishing Erasing JMeter Slaves======================='
                             }
                       }
@@ -83,10 +83,12 @@ pipeline {
     }
 
     post {
-            always {
+            failure {
                 sh 'echo ==============Start Final Block =============='
                 container('kubehelm'){
                     sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
+                    sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+                    sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                 }
                 sh 'echo ==============Finishing Final Block=============='
             }
