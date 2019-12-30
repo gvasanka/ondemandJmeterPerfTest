@@ -75,7 +75,7 @@ pipeline {
                             container('kubehelm'){
                                  sh 'echo ==============Start Erasing JMeter Slaves========================'
                                  sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
-                                 sh 'sleep 5'
+                                 sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                                  sh 'echo ===============Finishing Erasing JMeter Slaves======================='
                             }
                       }
