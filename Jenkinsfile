@@ -87,6 +87,7 @@ pipeline {
                 sh 'echo ==============Start Final Block =============='
                 container('kubehelm'){
                     sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
+                    sh 'helm get distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                 }
