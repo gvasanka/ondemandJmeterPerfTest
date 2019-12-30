@@ -85,7 +85,11 @@ pipeline {
 
     post {
             always {
-                sh 'echo ==============Final Block=============='
+                sh 'echo ==============Start Final Block =============='
+                container('kubehelm'){
+                    sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+                }
+                sh 'echo ==============Finishing Final Block=============='
             }
     }
 }
