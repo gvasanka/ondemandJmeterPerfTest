@@ -26,7 +26,7 @@ pipeline {
                               sh 'echo =======================Start deploy JMeter Slaves==============='
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
-                              sh 'helm install --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
+                              sh 'helm install1234 --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'echo =======================Finishing deploy JMeter Slaves==============='
                         }
                     }
@@ -74,8 +74,8 @@ pipeline {
                       steps {
                             container('kubehelm'){
                                  sh 'echo ==============Start Erasing JMeter Slaves========================'
-                                 sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}123'
-                                 sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}123 --timeout=60s'
+                                 sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+                                 sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                                  sh 'echo ===============Finishing Erasing JMeter Slaves======================='
                             }
                       }
