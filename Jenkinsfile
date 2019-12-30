@@ -26,7 +26,7 @@ pipeline {
                               sh 'echo =======================Start deploy JMeter Slaves==============='
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
-                              sh 'helm install1234 --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
+                              sh 'helm install --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
                               sh 'echo =======================Finishing deploy JMeter Slaves==============='
                         }
                     }
@@ -65,7 +65,7 @@ pipeline {
             stage('Read Performance Test Results') {
                 steps {
                     sh 'echo ===============Start read Performance Test Results======================='
-                    sh 'pwd'
+                    sh 'pwd1234'
                     perfReport 'target/jmeter/results/httpCounterDocker.csv'
                     sh 'echo ===============Finishing Performance Test Results======================='
                 }
@@ -86,8 +86,8 @@ pipeline {
             failure {
                 sh 'echo ==============Start Final Block =============='
                 container('kubehelm'){
-                    sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
-                    sh 'helm get distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
+//                     sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
+//                     sh 'helm get distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'helm delete --purge distributed-jmeter-${JOBNAME}-${BUILD_NUMBER}'
                     sh 'kubectl wait --for=delete pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=60s'
                 }
