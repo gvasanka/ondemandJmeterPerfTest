@@ -12,6 +12,13 @@ spec:
       command:
         - cat
       tty: true
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1024Mi"
+          cpu: "500m"
       volumeMounts:
         - mountPath: /root/.m2
           name: m2-volume
@@ -20,6 +27,13 @@ spec:
       command:
         - cat
       tty: true
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "100m"
+        limits:
+          memory: "512Mi"
+          cpu: "200m"
       volumeMounts:
 #        - mountPath: /root/.kube
 #          name: kube-volume
