@@ -20,6 +20,14 @@
                 <artifactId>jmeter-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <executions>
+                    <!-- Generate JMeter configuration -->
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <!-- Run JMeter tests -->
                     <execution>
                         <id>jmeter-tests</id>
                         <phase>verify</phase>
