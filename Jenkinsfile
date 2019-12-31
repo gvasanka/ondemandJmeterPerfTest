@@ -26,7 +26,7 @@ pipeline {
                               sh 'echo =======================Start deploy JMeter Slaves==============='
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
-                              sh 'helm install --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0'
+                              sh 'helm install --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0,image.tag=5.0'
                               sh 'kubectl wait --for=condition=ready pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --timeout=90s'
                               sh 'echo =======================Finishing deploy JMeter Slaves==============='
                         }
