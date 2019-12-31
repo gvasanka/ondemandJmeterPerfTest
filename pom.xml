@@ -18,7 +18,7 @@
             <plugin>
                 <groupId>com.lazerycode.jmeter</groupId>
                 <artifactId>jmeter-maven-plugin</artifactId>
-                <version>2.8.5</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>jmeter-tests</id>
@@ -42,6 +42,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <jmeterVersion>5.1.1</jmeterVersion>
                     <jMeterProcessJVMSettings>
                         <xms>${xms.setting}</xms>
                         <xmx>${xmx.setting}</xmx>
@@ -81,16 +82,17 @@
                         <artifact>kg.apc:jmeter-plugins-extras:1.4.0</artifact>
                         <artifact>kg.apc:jmeter-plugins-standard:1.4.0</artifact>
                         <artifact>kg.apc:jmeter-plugins-autostop:0.1</artifact>
-                        <artifact>kg.apc:jmeter-plugins-casutg:2.6</artifact>
+                        <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
                         <artifact>kg.apc:jmeter-plugins-cmn-jmeter:0.6</artifact>
                         <artifact>kg.apc:jmeter-plugins-csvars:0.1</artifact>
-                        <artifact>kg.apc:jmeter-plugins-functions:2.0</artifact>
+                        <artifact>kg.apc:jmeter-plugins-functions:2.1</artifact>
                         <artifact>kg.apc:jmeter-plugins-manager:1.3</artifact>
                         <artifact>kg.apc:jmeter-plugins-perfmon:2.1</artifact>
                         <artifact>kg.apc:jmeter-plugins-prmctl:0.4</artifact>
                         <artifact>kg.apc:jmeter-plugins-tst:2.5</artifact>
-                        <artifact>kg.apc:jmeter-plugins-webdriver:2.3</artifact>
-                        <artifact>com.blazemeter:jmeter-parallel:0.7</artifact>
+                        <artifact>kg.apc:jmeter-plugins-webdriver:3.1</artifact>
+                        <artifact>com.blazemeter:jmeter-parallel:0.9</artifact>
+                        <artifact>com.sysco.qe:qperf_core:0.0.2</artifact>
                     </jmeterExtensions>
                     <!-- The plugin uses some broken dependencies
                          An alternative is to set this to true and use excludedArtifacts, see below

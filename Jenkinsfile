@@ -23,7 +23,6 @@ pipeline {
             stage('Deploy JMeter Slaves') {
                    steps {
                         container('kubehelm'){
-                              sh 'sleep 20m'
                               sh 'echo =======================Start deploy JMeter Slaves==============='
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
@@ -67,6 +66,7 @@ pipeline {
             stage('Read Performance Test Results') {
                 steps {
                     sh 'echo ===============Start read Performance Test Results======================='
+                    sh 'sleep 20m'
                     sh 'pwd'
                     perfReport 'target/jmeter/results/httpCounterDocker.csv'
                     sh 'echo ===============Finishing Performance Test Results======================='
