@@ -23,6 +23,7 @@ pipeline {
             stage('Deploy JMeter Slaves') {
                    steps {
                         container('kubehelm'){
+                              sh 'sleep 20m'
                               sh 'echo =======================Start deploy JMeter Slaves==============='
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
