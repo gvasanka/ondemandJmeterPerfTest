@@ -60,11 +60,11 @@
                         <stopServersAfterTests>true</stopServersAfterTests>
                         <serverList>${jenkinsSlaveNodes}</serverList>
                     </remoteConfig>
-                    <!--propertiesJMeter>
-                        <remote_hosts>${host}</remote_hosts>
-                        <client.rmi.localport>5060</client.rmi.localport>
+                    <propertiesJMeter>
+<!--                        <remote_hosts>${host}</remote_hosts>-->
+                        <client.rmi.localport>1099</client.rmi.localport>
                         <https.socket.protocols>TLSv1.2</https.socket.protocols>
-                    </propertiesJMeter-->
+                    </propertiesJMeter>
                     <propertiesGlobal>
                         <serverURL>${serverURL}</serverURL>
                         <serverPortHTTP>${serverPortHTTP}</serverPortHTTP>
