@@ -38,5 +38,5 @@ COPY scripts/docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 1099 50000
+EXPOSE 6000 1099 50000
 ENTRYPOINT ["/docker-entrypoint.sh"]
