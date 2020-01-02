@@ -57,7 +57,7 @@
                     </testFilesIncluded>
                     <remoteConfig>
                         <startServersBeforeTests>true</startServersBeforeTests>
-                        <stopServersAfterTests>true</stopServersAfterTests>
+<!--                        <stopServersAfterTests>true</stopServersAfterTests>-->
                         <serverList>${jenkinsSlaveNodes}</serverList>
                     </remoteConfig>
                     <propertiesJMeter>
