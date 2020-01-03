@@ -35,13 +35,13 @@ pipeline {
             stage('Search Slave IP details') {
                     steps {
                         container('kubehelm'){
+                            sh 'echo ===============Start search for slave IP details======================='
                             script{
-                                  print "=================Start search for slave IP details====================="
                                   print "Searching for Jmeter Slave IPs"
                                   env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
-                                  print "===================Finishing search for slave IP details==================="
                             }
+                            sh 'echo ===============Finishing search for slave IP details======================='
                         }
                     }
              }
