@@ -41,6 +41,8 @@ pipeline {
                                   env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
                             }
+                            sh 'pwd'
+                            sh 'sleep 10m'
                             sh 'echo ===============Finishing search for slave IP details======================='
                         }
                     }
