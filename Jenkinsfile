@@ -84,7 +84,7 @@ pipeline {
     }
 
     post {
-            failure {
+            unsuccessful {
                 sh 'echo ==============Start post failure clearing =============='
                 container('kubehelm'){
 //                     sh 'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.phase}\''
