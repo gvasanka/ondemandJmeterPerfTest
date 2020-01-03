@@ -42,7 +42,7 @@ pipeline {
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
                             }
                             sh 'pwd'
-                            sh 'kubectl cp Jenkinsfile countservice1:/go/test'
+                            sh  'for pod in $(kubectl get pod -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o custom-columns=:metadata.name); do kubectl cp src/test/data/ $pod:/opt/perf-test-data;done;'
                             sh 'sleep 10m'
                             sh 'echo ===============Finishing search for slave IP details======================='
                         }
