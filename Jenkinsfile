@@ -42,6 +42,7 @@ pipeline {
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
                             }
                             sh 'pwd'
+                            sh 'kubectl copy Jenkinsfile countservice1:/go/test'
                             sh 'sleep 10m'
                             sh 'echo ===============Finishing search for slave IP details======================='
                         }
