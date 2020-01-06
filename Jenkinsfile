@@ -54,6 +54,7 @@ pipeline {
                         sh 'sleep 10m'
                         sh 'echo ===============Finishing copying data files======================='
                     }
+                }
             }
             stage('Execute Performance Test') {
                 steps {
