@@ -41,14 +41,21 @@ pipeline {
                                   env.jenkinsSlaveNodes = sh(returnStdout: true, script:'kubectl get pods -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o jsonpath=\'{.items[*].status.podIP}\' | tr \' \' \',\'')
                                   println("IP Details: ${env.jenkinsSlaveNodes}")
                             }
-                            sh 'pwd'
-                            sh  'for pod in $(kubectl get pod -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o custom-columns=:metadata.name); do kubectl cp src/test/data/ $pod:/opt/perf-test-data;done;'
-                            sh 'sleep 10m'
+
                             sh 'echo ===============Finishing search for slave IP details======================='
                         }
                     }
-             }
-             stage('Execute Performance Test') {
+            }
+            stage('Copying data files to JMeter Slaves') {
+                steps {
+                    container('kubehelm'){
+                        sh 'echo ===============Start copying data files======================='
+                        sh 'pwd'
+                        sh  'for pod in $(kubectl get pod -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o custom-columns=:metadata.name); do kubectl cp src/test/data/ $pod:/opt/perf-test-data;done;'
+                        sh 'echo ===============Finishing copying data files======================='
+                    }
+            }
+            stage('Execute Performance Test') {
                 steps {
                     container('maven'){
                         sh 'echo ===============Start maven build execution======================='
