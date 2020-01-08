@@ -51,7 +51,6 @@ pipeline {
                         sh 'echo ===============Start copying data files======================='
                         sh 'pwd'
                         sh 'for pod in $(kubectl get pod -l app.kubernetes.io/instance=distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} -o custom-columns=:metadata.name); do kubectl cp src/test/data/ $pod:/opt/perf-test-data;done;'
-                        sh 'sleep 10m'
                         sh 'echo ===============Finishing copying data files======================='
                     }
                 }
