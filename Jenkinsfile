@@ -24,10 +24,10 @@ pipeline {
                    steps {
                         container('kubehelm'){
                               sh 'echo =======================Start deploy JMeter Slaves==============='
-                              script{
-                                env.JOBNAME=sh(returnStdout: true, script:'$(tr [A-Z] [a-z] <<< "$JOB_NAME")')
-                                println("Job Name : ${env.JOBNAME}")
-                              }
+                               script {
+                                     def test = JOBNAME.toLowerCase()
+                                     println ${test}
+                                  }
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
                               sh 'helm install --wait stable/distributed-jmeter --name distributed-jmeter-${JOBNAME}-${BUILD_NUMBER} --set server.replicaCount=${noOfSlaveNodes},master.replicaCount=0,image.repository=gvasanka/jmeter-plugins,image.tag=5.1.1,image.pullPolicy=Always'
