@@ -24,7 +24,10 @@ pipeline {
                    steps {
                         container('kubehelm'){
                               sh 'echo =======================Start deploy JMeter Slaves==============='
-                              env.JOBNAME = sh(returnStdout: true, script:'echo ${JOBNAME} | tr \'[:upper:]\' \'[:lower:]\'')
+                              script{
+                                 env.JOBNAME = sh(returnStdout: true, script:'echo ${JOBNAME} | tr \'[:upper:]\' \'[:lower:]\'')
+                                 println("Jobname Details: ${env.JOBNAME}")
+                              }
 //                               sh 'echo ${JOBNAME} | tr \'[:upper:]\' \'[:lower:]\''
 //                               sh 'helm init --client-only'
 //                               sh 'helm repo update'
