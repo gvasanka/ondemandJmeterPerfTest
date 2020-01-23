@@ -12,7 +12,7 @@ pipeline {
     }
 
     environment {
-            JOBNAME = "Jobname"
+            JOBNAME = "${env.JOB_NAME}"
     }
 
     parameters {
