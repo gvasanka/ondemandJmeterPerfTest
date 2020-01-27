@@ -64,6 +64,7 @@ pipeline {
                 steps {
                     container('maven'){
                         sh 'echo ===============Start maven build execution======================='
+                        sh 'sleep 10m'
                         sh 'echo ${jenkinsSlaveNodes}'
                         sh 'mvn clean install -DjenkinsSlaveNodes=${jenkinsSlaveNodes}'
                         sh 'echo ===============Finishing maven build execution======================='
